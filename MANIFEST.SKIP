@@ -1,0 +1,7 @@
+local/
+.git/
+a/
+
+.gitignore
+cpanfile
+cpanfile.snapshot
