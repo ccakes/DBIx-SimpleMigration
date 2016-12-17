@@ -3,10 +3,16 @@
 !Build/
 .last_cover_stats
 /META.yml
-/META.json
 /MYMETA.*
 *.o
 *.bs
+/DBIx-SimpleMigration-*
+/.build
+/_build_params
+/Build
+/Build.bat
+!META.json
+!LICENSE
 
 # Devel::Cover
 cover_db/

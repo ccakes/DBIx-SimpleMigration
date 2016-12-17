@@ -1,0 +1,4 @@
+name = "DBIx-SimpleMigration"
+# badges = ["travis"]
+module_maker="ModuleBuildTiny"
+
