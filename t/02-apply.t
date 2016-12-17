@@ -7,7 +7,7 @@ use DBI;
 use DBIx::SimpleMigration;
 use File::Temp 'tempdir';
 
-use Test::More tests => 2;
+use Test::More tests => 4;
 
 #################################
 ## Set up
@@ -29,16 +29,18 @@ close F1;
 close F2;
 #################################
 
-my $dbh = DBI->connect('dbi:SQLite:dbname=:memory:');
+# Can't use :memory: as the handle gets cloned inside the module and we need to test it later
+my $dbh = DBI->connect("dbi:SQLite:dbname=$tmp/sqlite.db");
 my $migration = DBIx::SimpleMigration->new(
   dbh => $dbh,
   source => $tmp
 );
 
-#diag explain $migration; BAIL_OUT();
-
 isa_ok $migration, 'DBIx::SimpleMigration', 'DBIx::SimpleMigration->new returns blessed object';
 eval { $migration->apply };
 is $@, '', 'No errors detected';
 
-diag 'Error: $@' if $@ and BAIL_OUT();
+my $result = $dbh->selectall_arrayref('SELECT * FROM migrations', {Slice => {}});
+is @{$result}, 2, 'Correct number of migrations inserted';
+
+ok(($result->[0]->{name} eq '01.sql' && $result->[1]->{name} eq '02.sql'), 'Migrations inserted in order');

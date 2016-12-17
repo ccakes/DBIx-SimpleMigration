@@ -75,3 +75,19 @@ sub _insert_migration {
 }
 
 1;
+
+__END__
+=encoding utf-8
+=head1 NAME
+
+DBIx::SimpleMigration::Client
+
+=head1 DESCRIPTION
+
+This holds the cloned L<DBI> handle and wraps most of the interactions inside some helper methods. This module provides a basic set of functions which should work across most DBI drivers however for specific cases (based on the authors usage), some drivers will instantiate subclasses of this with more specific functionality.
+
+=head1 SYNOPSIS
+
+This module really should only be instatiated by L<DBIx::SimpleMigration>, there's little use in using it directly.
+
+=cut

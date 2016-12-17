@@ -70,3 +70,17 @@ sub apply {
 }
 
 1;
+
+__END__
+=encoding utf-8
+=head1 NAME
+
+DBIx::SimpleMigration::Migration
+
+=head1 DESCRIPTION
+
+This handles loading the SQL file for the migration, parses it with L<SQL::SplitStatement> and then uses L<DBIx::SimpleMigration::Client> to apply it to the cloned L<DBI> handle.
+
+This tries to be as safe as possible, see DBIx::SimpleMigration::Client for more documentation.
+
+=cut
