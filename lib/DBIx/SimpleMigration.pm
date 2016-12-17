@@ -88,8 +88,6 @@ __END__
 
 DBIx::SimpleMigration - extremely simple DBI migrations
 
-=for HTML <img src="https://travis-ci.org/ccakes/DBIx-SimpleMigration.svg?branch=master" />
-
 =head1 DESCRIPTION
 
 This is a very simple module to simplify schema updates in a larger application. This will scan a directory of SQL files and execute them on a supplied L<DBI> handle. Files are executed in order and inside transactions for safety. The module will create a table to track progress so new releases can add migrations as a SQL file and this will only deploy what is required.

@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ccakes/DBIx-SimpleMigration.svg?branch=master)](https://travis-ci.org/ccakes/DBIx-SimpleMigration) [![MetaCPAN Release](https://badge.fury.io/pl/DBIx-SimpleMigration.svg)](https://metacpan.org/release/DBIx-SimpleMigration)
 DBIx::SimpleMigration - extremely simple DBI migrations
 
 # DESCRIPTION
