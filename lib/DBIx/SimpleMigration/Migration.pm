@@ -8,7 +8,7 @@ use Carp;
 use File::Basename;
 use SQL::SplitStatement;
 
-our $VERSION = '1.0';
+our $VERSION = '1.0.1';
 
 sub new {
   my $self = bless {}, shift;
