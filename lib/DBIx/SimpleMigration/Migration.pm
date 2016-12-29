@@ -8,7 +8,7 @@ use Carp;
 use File::Basename;
 use SQL::SplitStatement;
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
 
 sub new {
   my $self = bless {}, shift;
@@ -28,7 +28,7 @@ sub new {
   my $contents;
   {
     local $/ = undef;
-    open FH, '<', $args{file} or die 'Error opening file: ' . $!;
+    open FH, '<', $args{file} or croak __PACKAGE__ . '->new: Error opening file: ' . $!;
     $contents = <FH>;
     close FH;
   }
@@ -57,13 +57,13 @@ sub apply {
   };
 
   if ($@) {
-    $self->{_client}->{dbh}->rollback or die 'Error rolling back transaction: ' . $self->{_client}->{dbh}->errstr;
-    die 'Error applying changeset';
+    $self->{_client}->{dbh}->rollback or croak __PACKAGE__ . '->apply: Error rolling back transaction: ' . $self->{_client}->{dbh}->errstr;
+    croak __PACKAGE__ . '->apply: Error applying changeset';
   }
 
   if (!$self->{_client}->_insert_migration($self->{_key})) {
     $self->{_client}->{dbh}->rollback;
-    die;
+    croak;
   }
 
   $self->{_client}->{dbh}->commit;

@@ -1,6 +1,8 @@
 package DBIx::SimpleMigration::Client;
 
-our $VERSION = '1.0.1';
+use Carp;
+
+our $VERSION = '1.0.2';
 
 sub new {
   my $self = bless {}, shift;
@@ -23,7 +25,7 @@ sub _create_migrations_table {
     )
   ';
 
-  $self->{dbh}->do($query) or die 'Error creating table: ' . $self->{dbh}->errstr;
+  $self->{dbh}->do($query) or croak __PACKAGE__ . ': Error creating table: ' . $self->{dbh}->errstr;
 
   return $self;
 }
@@ -67,7 +69,7 @@ sub _insert_migration {
   };
 
   if ($@) {
-    warn 'Error recording migration: ' . $self->{dbh}->errstr;
+    carp __PACKAGE__ . ': Error recording migration: ' . $self->{dbh}->errstr;
     return;
   }
 

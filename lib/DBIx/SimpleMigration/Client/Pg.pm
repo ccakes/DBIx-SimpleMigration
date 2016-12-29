@@ -1,8 +1,9 @@
 package DBIx::SimpleMigration::Client::Pg;
-
 use parent qw(DBIx::SimpleMigration::Client);
 
-our $VERSION = '1.0.1';
+use Carp;
+
+our $VERSION = '1.0.2';
 
 sub new {
   my $class = shift;
@@ -24,7 +25,7 @@ sub _create_migrations_schema {
 
   eval { $self->{dbh}->do($query) };
   if ($@) {
-    die 'Error creating schema: ' . $self->{dbh}->errstr;
+    croak __PACKAGE__ . ': Error creating schema: ' . $self->{dbh}->errstr;
   }
 }
 
@@ -45,7 +46,7 @@ sub _create_migrations_table {
 
   eval { $self->{dbh}->do($query) };
   if ($@) {
-    die 'Error creating table: ' . $self->{dbh}->errstr;
+    croak __PACKAGE__ . ': Error creating table: ' . $self->{dbh}->errstr;
   }
 }
 
@@ -69,7 +70,7 @@ sub _migrations_table_exists {
     )
   ";
 
-  my $row = $self->{dbh}->selectrow_hashref($query, {}, $self->{options}->{migrations_table}) or die 'Database error: ' . $self->{dbh}->errstr;
+  my $row = $self->{dbh}->selectrow_hashref($query, {}, $self->{options}->{migrations_table}) or croak __PACKAGE__ . ': Database error: ' . $self->{dbh}->errstr;
 
   return $row->{exists};
 }

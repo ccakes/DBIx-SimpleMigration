@@ -10,7 +10,7 @@ use File::Basename;
 use DBIx::SimpleMigration::Client;
 use DBIx::SimpleMigration::Migration;
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
 
 sub new {
   my $self = bless {}, shift;

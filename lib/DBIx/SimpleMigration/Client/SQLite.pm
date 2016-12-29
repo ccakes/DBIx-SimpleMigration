@@ -1,8 +1,9 @@
 package DBIx::SimpleMigration::Client::SQLite;
-
 use parent qw(DBIx::SimpleMigration::Client);
 
-our $VERSION = '1.0.1';
+use Carp;
+
+our $VERSION = '1.0.2';
 
 sub _migrations_table_exists {
   my ($self) = @_;
@@ -15,7 +16,7 @@ sub _migrations_table_exists {
     )
   ";
 
-  my $row = $self->{dbh}->selectrow_hashref($query, {}, $self->{_options}->{migrations_table}) or die 'Database error: ' . $self->{dbh}->errstr;
+  my $row = $self->{dbh}->selectrow_hashref($query, {}, $self->{_options}->{migrations_table}) or croak __PACKAGE__ . ': Database error: ' . $self->{dbh}->errstr;
 
   return $row->{exists};
 }
